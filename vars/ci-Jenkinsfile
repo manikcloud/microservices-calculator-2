@@ -92,13 +92,13 @@
           //   }
           // }   
 
-          stage("list files") {
-              steps {
-                  sh "ls -l *" 
-              }
-          }
+          // stage("list files") {
+          //     steps {
+          //         sh "ls -l *" 
+          //     }
+          // }
 
-          stage('Docker Login to ACR') { 
+          stage('ACR Login') { 
               steps {
                   withCredentials([usernamePassword(credentialsId: 'aksacrapp', usernameVariable: 'ACR_USERNAME', passwordVariable: 'ACR_PASSWORD')]) {
                       container('docker') {
@@ -110,7 +110,7 @@
               }
           }
           // Assuming a stage to build the Docker image: 
-          stage('Build Docker Image') {
+          stage('Build Image') {
               steps {
                   container('docker') {
                     dir("${WORKSPACE}/${env.APP_REPO_NAME}/") {
@@ -121,7 +121,7 @@
                   }
                 }
           }
-          stage('Push Docker Image to ACR') {
+          stage('Push Image to ACR') {
               steps {
                 container('docker') {              
                   sh """
