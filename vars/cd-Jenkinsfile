@@ -19,16 +19,19 @@ pipeline {
             defaultContainer 'jnlp'
         }
     }
+    environment {
+        APP_REPO_NAME = 'microservices-calculator-2'
+    }    
     stages {
         stage('Git Details') {
             steps {
-              sh "git clone https://github.com/manikcloud/microservices-calculator.git"
+              sh "git clone https://github.com/manikcloud/${env.APP_REPO_NAME}.git"
             }
         }        
         stage('Get Commit ID') {
             steps {
                 container('kbctl-helm') {
-                    dir('${WORKSPACE}/microservices-calculator/') {
+                    dir("${WORKSPACE}/${env.APP_REPO_NAME}/") {
                         script {
                             env.APP_NAME = sh(script: 'cat pom.xml | xq -x //artifactId | head -1', returnStdout: true).trim()
                             env.ENVIRONMENT = 'prd'
