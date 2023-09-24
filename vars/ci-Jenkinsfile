@@ -24,6 +24,7 @@
       }
         environment {
           APP_REPO_NAME = 'microservices-calculator-2'
+          SONAR_URL = 'http://3.84.119.54:9000'
         }
         stages {
           stage('Git Checkout') {
@@ -77,7 +78,7 @@
                 steps {
                   withSonarQubeEnv('sonarqube') {
                       dir("${WORKSPACE}/${env.APP_REPO_NAME}/") { 
-                          sh "mvn verify sonar:sonar -Dsonar.host.url=http://3.84.119.54:9000"                        
+                          sh "mvn verify sonar:sonar -Dsonar.host.url=${SONAR_URL}"                        
                       }
                   }
               } 
