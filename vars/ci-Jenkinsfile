@@ -23,7 +23,7 @@
           }
       }
         environment {
-          APP_REPO_NAME = 'microservices-calculator'
+          APP_REPO_NAME = 'microservices-calculator-2'
         }
         stages {
           stage('Git Checkout') {
